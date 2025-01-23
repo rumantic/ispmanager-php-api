@@ -1,11 +1,11 @@
 {
-    "name": "stereoflo/ispmanager-php-api",
+    "name": "rumantic/ispmanager-php-api",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "StereoFlo",
-            "email": "stereoflo@stereoflo.ru"
+            "name": "Sitebill ispmanager-php-api",
+            "email": "kondin@etown.ru"
         }
     ],
     "require": {

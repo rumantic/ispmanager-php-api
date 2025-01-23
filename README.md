@@ -9,7 +9,7 @@ An English documentation is not ready, please use Google Translator
 #### Установка:
 
 ```bash
-composer require stereoflo/ispmanager-php-api
+composer require rumantic/ispmanager-php-api
 ```
 
 #### Подготовка сервера и пользователя
