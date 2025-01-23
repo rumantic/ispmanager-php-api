@@ -1,24 +1,44 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace IspApi\Func;
 
-use function array_merge;
-
+/**
+ * Class AbstractFunc
+ * @package IspApi\Func
+ */
 abstract class AbstractFunc implements FuncInterface
 {
-    protected bool $isSaveAction = false;
-    protected string $func;
-    protected string $elid;
-    protected string $plid;
+    /**
+     * @var bool
+     */
+    protected $isSaveAction = false;
 
     /**
-     * @var array<mixed>
+     * @var string
      */
-    protected array $additional = [];
+    protected $func = '';
 
-    public function __construct(string $elid = null, string $plid = null)
+    /**
+     * @var string
+     */
+    protected $elid = '';
+
+    /**
+     * @var string
+     */
+    protected $plid = '';
+
+    /**
+     * @var array
+     */
+    protected $additional = [];
+
+    /**
+     * Domain constructor.
+     * @param string $elid
+     * @param string $plid
+     */
+    public function __construct(string $elid = '', string $plid = '')
     {
         if ($elid) {
             $this->elid = $elid;
@@ -29,39 +49,56 @@ abstract class AbstractFunc implements FuncInterface
     }
 
     /**
-     * @param array<mixed> $additional
-     *
-     * @return $this
+     * @param array $additional
+     * @return self
      */
     public function setAdditional(array $additional): self
     {
         if (empty($this->additional)) {
             $this->additional = $additional;
-
             return $this;
         }
-        $this->additional = array_merge($this->additional, $additional);
-
+        $this->additional = \array_merge($this->additional, $additional);
         return $this;
     }
 
-    final public function getFunc(): ?string
+    /**
+     * @return string
+     */
+    final public function getFunc(): string
     {
         return $this->func;
     }
 
-    final public function getElid(): ?string
+    /**
+     * @return string
+     */
+    final public function getElid(): string
     {
         return $this->elid;
     }
 
-    final public function getPlid(): ?string
+    /**
+     * @return string
+     */
+    final public function getPlid(): string
     {
         return $this->plid;
     }
 
-    final public function getIsSaveAction(): bool
+    /**
+     * @return bool
+     */
+    final public function isSaveAction(): bool
     {
         return $this->isSaveAction;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getAdditional(): array
+    {
+        return $this->additional;
     }
 }

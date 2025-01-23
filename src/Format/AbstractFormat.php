@@ -1,28 +1,47 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace IspApi\Format;
 
+/**
+ * Class AbstractFormat
+ * @package IspApi\Format
+ */
 abstract class AbstractFormat implements FormatInterface
 {
-    protected string $format;
-    protected string $data;
+    /**
+     * @var string
+     */
+    protected $format;
 
+    /**
+     * @var mixed
+     */
+    protected $data;
+
+    /**
+     * @return string
+     */
     public function getFormat(): string
     {
         return $this->format;
     }
 
-    public function setData(string $data): FormatInterface
+    /**
+     * @param $data
+     *
+     * @return FormatInterface
+     */
+    public function setData($data): FormatInterface
     {
         $this->data = $data;
-
         return $this;
     }
 
     /**
-     * @return array<mixed>
+     * @return mixed
      */
-    abstract public function getResult(): array;
+    public function getOut()
+    {
+        return $this->data;
+    }
 }

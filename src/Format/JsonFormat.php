@@ -1,19 +1,22 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace IspApi\Format;
 
-use function json_decode;
-
+/**
+ * Class JsonFormat
+ * @package IspApi\Format
+ */
 class JsonFormat extends AbstractFormat
 {
-    protected string $format = 'json';
+    /**
+     * @var string
+     */
+    protected $format = 'json';
 
     /**
-     * @return array<mixed>
+     * @return array
      */
-    public function getResult(): array
+    public function getOut(): array
     {
         return json_decode($this->data, true);
     }

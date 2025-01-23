@@ -1,12 +1,14 @@
 <?php
 
-declare(strict_types = 1);
-
-namespace IspApi\Func\Dns\Soa;
+namespace IspApi\Func\Soa;
 
 use IspApi\Func\AbstractFunc;
 
+/**
+ * Class DomainSoa
+ * @package IspApi\Func
+ */
 class GetSoa extends AbstractFunc
 {
-    protected string $func = 'soa.edit';
+    protected $func = 'soa.edit';
 }

@@ -1,12 +1,14 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace IspApi\Func\Dns\Record;
 
 use IspApi\Func\AbstractFunc;
 
+/**
+ * Class DomainSublist
+ * @package IspApi\Func
+ */
 class GetList extends AbstractFunc
 {
-    protected string $func = 'domain.sublist';
+    protected $func = 'domain.sublist';
 }

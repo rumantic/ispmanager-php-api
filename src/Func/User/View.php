@@ -7,7 +7,7 @@ use IspApi\Func\AbstractFunc;
 /**
  * Class UserEdit
  */
-class Edit extends AbstractFunc
+class View extends AbstractFunc
 {
     protected $func = 'user.edit';
 
@@ -18,7 +18,7 @@ class Edit extends AbstractFunc
      */
     public function __construct(string $name)
     {
-        $this->additional['sok'] = 'ok';
+        $this->additional['elid'] = $name;
         parent::__construct($name);
     }
 

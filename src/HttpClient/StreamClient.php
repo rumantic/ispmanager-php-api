@@ -1,71 +1,65 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace IspApi\HttpClient;
 
-use Exception;
-use RuntimeException;
-use function fclose;
-use function fopen;
-use function fread;
-use function http_build_query;
-use function is_bool;
-use function json_decode;
-use function stream_context_create;
-use function urldecode;
-
+/**
+ * Class StreamClient
+ * @package IspApi\HttpClient
+ */
 class StreamClient implements HttpClientInterface
 {
-    public const DEFAULT_LENGTH = 4096;
+    const DEFAULT_LENGTH = 4096;
 
-    private HttpClientParams $params;
+    /**
+     * @var HttpClientParams
+     */
+    private $params;
 
+    /**
+     * @param HttpClientParams $params
+     *
+     * @return StreamClient
+     */
     public function setParams(HttpClientParams $params): self
     {
         $this->params = $params;
-
         return $this;
     }
 
-    public function get(): string
+    /**
+     * @return array
+     */
+    public function get(): array
     {
         try {
-            $connection = fopen($this->params->getUrl(), 'rb', false, stream_context_create($this->prepareParams()));
-            if (is_bool($connection)) {
-                throw new RuntimeException();
-            }
-
+            $connection = \fopen($this->params->getUrl(), 'rb', false, \stream_context_create($this->prepareParams()));
             $response = '';
-            while ($data = fread($connection, self::DEFAULT_LENGTH)) {
+            while ($data = \fread($connection, self::DEFAULT_LENGTH)) {
                 $response .= $data;
             }
-            fclose($connection);
-            $response = json_decode($response, true);
-        } catch (Exception $exception) {
+            \fclose($connection);
+            $response = \json_decode($response, true);
+        } catch (\Exception $exception) {
             $response = [];
         }
-
         return $response;
     }
 
     /**
-     * @return array<array<string, mixed>>
+     * @return array
      */
     private function prepareParams(): array
     {
-        $header  = $this->params->getHeader();
-        $content = $this->params->getContent();
-        if (HttpClientParams::HTTP_METHOD_POST === $this->params->getMethod() && $content) {
+        $header = $this->params->getHeader();
+        if ($this->params->getMethod() === HttpClientParams::HTTP_METHOD_POST) {
             return [
                 'http' => [
                     'method'  => $this->params->getMethod(),
                     'header'  => $header[0],
-                    'content' => urldecode(http_build_query($content)),
-                ],
+                    'content' => \urldecode(\http_build_query($this->params->getContent())),
+                ]
             ];
         }
-
         return [
             'http' => [
                 'method' => $this->params->getMethod(),
